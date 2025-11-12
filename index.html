@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Fabri — Inglês que você fala de verdade (Varginha & Online)</title>
-    <meta name="description" content="Aulas de inglês personalizadas com foco em speaking & listening. Professor formado em Letras, pós em Docência e Neuroaprendizagem. Especialista em Inglês para TI/ADS. Aulas online e presenciais em Varginha.">
+    <title>FutureSelf — Inglês que você fala e vive de verdade (Varginha & Online)</title>
+    <meta name="description" content="Aulas de inglês personalizadas com foco em Speaking & Listening. Professor formado em Letras, com 3 pós-graduações. Mais de 7 anos de experiência. Aulas online e presenciais em Varginha.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -26,7 +26,23 @@
         .wrap{max-width:var(--maxw);margin:28px auto;padding:20px}
 
         header{display:flex;align-items:center;gap:18px}
-        .logo{width:72px;height:72px;border-radius:14px;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:28px;color:white;box-shadow:0 8px 30px rgba(7,9,14,0.6)}
+        .logo{
+            width:72px;height:72px;border-radius:14px;
+            background:linear-gradient(135deg,var(--accent-1),var(--accent-2));
+            display:flex;align-items:center;justify-content:center;
+            font-weight:800;font-size:28px;color:white;
+            box-shadow:0 8px 30px rgba(7,9,14,0.6);
+            /* Estilo para o texto FS */
+            background-clip: text; /* Isso não funciona com background-color, precisa de -webkit-background-clip */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(135deg,var(--accent-1),var(--accent-2));
+        }
+        .logo span {
+             -webkit-text-fill-color: white; /* Cor do texto dentro do span */
+             background-image: none; /* Remove o gradiente do background clip */
+             color: white; /* Cor de fallback */
+        }
         h1{font-size:22px;margin:0}
         .subtitle{color:var(--muted);margin-top:4px;font-size:15px}
 
@@ -49,7 +65,23 @@
         .dot{width:10px;height:10px;border-radius:3px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));margin-top:6px}
 
         aside form label{display:block;font-size:13px;color:var(--muted);margin-top:10px}
-        aside input, aside textarea, aside select{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:#e6eef6}
+        aside input, aside textarea, aside select{
+            width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);
+            background:transparent;color:#e6eef6;
+            /* Estilo para o dropdown */
+            appearance: none; /* Remove estilo nativo do select */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%239aa7b2" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 18px;
+            padding-right: 30px; /* Espaço para o ícone */
+        }
+        aside select option {
+            background: var(--card); /* Cor de fundo para as opções */
+            color: #e6eef6; /* Cor do texto das opções */
+        }
         aside button{margin-top:12px;width:100%;padding:14px;border-radius:12px;border:none;background:linear-gradient(90deg,var(--accent-2),var(--accent-1));font-weight:800;color:#061021}
 
         .small{font-size:13px;color:var(--muted)}
@@ -68,55 +100,97 @@
         .cta:hover{filter:brightness(1.05);transform:translateY(-3px)}
 
         /* subtle animated wave */
-        .wave{position:relative;overflow:hidden;border-radius:12px;margin-top:14px;border:2px solid rgba(6,182,212,0.3)} /* Destaque no CTA principal */
+        .wave{position:relative;overflow:hidden;border-radius:12px;margin-top:14px;border:2px solid var(--accent-1); /* Destaque no CTA principal */ }
         .wave:before{content:'';position:absolute;left:-40%;top:-20%;width:220%;height:220%;background:radial-gradient(circle at 10% 20%, rgba(6,182,212,0.08), transparent 6%), radial-gradient(circle at 90% 80%, rgba(16,185,129,0.06), transparent 6%);transform:rotate(6deg);animation:drift 12s linear infinite}
         @keyframes drift{0%{transform:translateX(-3%) rotate(0)}50%{transform:translateX(3%) rotate(2deg)}100%{transform:translateX(-3%) rotate(0)}}
+
+        /* Estilo para a nova seção "Conheça o Professor" */
+        .professor-section {
+            display: grid;
+            grid-template-columns: 1fr; /* Muda para 1 coluna em telas menores */
+            gap: 20px;
+            margin-top: 24px;
+        }
+        .professor-section .card {
+            padding: 20px;
+        }
+        .professor-section h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg,var(--accent-1),var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .professor-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .professor-section li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        .professor-section li::before {
+            content: '✓'; /* Ícone de check */
+            color: var(--accent-2);
+            font-weight: bold;
+            margin-right: 5px;
+            flex-shrink: 0;
+        }
+        @media (min-width: 768px) {
+            .professor-section {
+                grid-template-columns: 2fr 1fr; /* Duas colunas em telas maiores */
+            }
+        }
 
     </style>
 </head>
 <body>
     <div class="wrap">
         <header>
-            <div class="logo">F</div>
-            <div>
-                <h1>Fabri — Inglês que você **fala de verdade**</h1>
-                <div class="subtitle">Professor (Letras) • Pós Docência • Neuroaprendizagem • Especialista em Inglês para ADS/TI</div>
+            <div class="logo">FS</div> <div>
+                <h1>FutureSelf — Inglês que você **fala e vive de verdade**</h1>
+                <div class="subtitle">Seu professor: Fabricio Figueiredo</div>
                 <div class="badges">
-                    <div class="badge">12+ anos de experiência: Adolescentes & Adultos</div>
+                    <div class="badge">Mais de 7 anos de experiência: Adolescentes & Adultos (12+)</div>
                     <div class="badge">Foco total: Conversação e Audição (Speaking & Listening)</div>
-                    <div class="badge">Online (Todo Brasil) • Presencial (Varginha)</div>
+                    <div class="badge">Online (Todo Brasil) • Presencial (Varginha, MG)</div>
                 </div>
             </div>
         </header>
 
         <main class="hero">
             <section class="card">
-                <p class="lead">Aulas **100% personalizadas** para quem quer destravar a conversação e entender a língua. Atendimento do básico ao avançado com método comunicativo e técnicas de neuroaprendizagem aplicadas. **Chega de "gramatiquês"**.</p>
+                <p class="lead">Aulas <strong>100% personalizadas</strong> para quem quer destravar a conversação, entender a língua e se comunicar com confiança. Atendimento do básico ao avançado com **método comunicativo** e **técnicas de neuroaprendizagem** aplicadas. Aqui, você aprende a usar o inglês na vida real.</p>
 
                 <div class="wave card" style="padding:18px">
                     <div style="display:flex;justify-content:space-between;align-items:center">
                         <div>
-                            <div style="font-size:14px;color:var(--muted)">Destrave seu inglês hoje</div>
+                            <div style="font-size:14px;color:var(--muted)">Sua jornada começa agora</div>
                             <div style="font-weight:800;font-size:20px;margin-top:6px">Aula experimental (30 minutos grátis)</div>
                         </div>
-                        <a class="cta" href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabri%2C%20quero%20a%20aula%20experimental%20gratuita%20para%20conversacao">Agendar grátis →</a>
+                        <a class="cta" href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabri%C3%ADcio%2C%20quero%20agendar%20minha%20aula%20experimental%20gratuita." target="_blank">Agendar grátis →</a>
                     </div>
                 </div>
 
-                <h3 style="margin-top:20px;font-size:18px">Por que Fabri?</h3>
+                <h3 style="margin-top:20px;font-size:18px">Por que aprender com o Fabricio (Fabri)?</h3>
                 <div class="features">
-                    <div class="feature"><div class="dot"></div><div>**Método Comunicativo:** 80% do tempo focado na sua fala.</div></div>
-                    <div class="feature"><div class="dot"></div><div>**Especialista em TI/ADS:** Ajudo você a falar sobre programação e carreira internacional.</div></div>
-                    <div class="feature"><div class="dot"></div><div>**Neuroaprendizagem:** Técnicas comprovadas para você aprender mais rápido e fixar o conteúdo.</div></div>
-                    <div class="feature"><div class="dot"></div><div>**Flexibilidade:** Online (o mais popular) ou presencial em Varginha.</div></div>
+                    <div class="feature"><div class="dot"></div><div><strong>Falar é prioridade:</strong> Método comunicativo que foca 80% do tempo na sua fala e compreensão.</div></div>
+                    <div class="feature"><div class="dot"></div><div><strong>Aprendizado Eficaz:</strong> Técnicas de neuroaprendizagem para você assimilar mais rápido e fixar o conteúdo.</div></div>
+                    <div class="feature"><div class="dot"></div><div><strong>Flexibilidade Total:</strong> Escolha entre aulas online (o mais popular) ou presenciais em Varginha.</div></div>
+                    <div class="feature"><div class="dot"></div><div><strong>Conteúdo Adaptado:</strong> Sua carreira, estudos e interesses guiam a criação dos materiais.</div></div>
                 </div>
 
                 <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
-                    <a class="cta" href="https://wa.me/5535984053161?text=Quero%20falar%20com%20o%20Fabri">Falar por WhatsApp</a>
+                    <a class="cta" href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio%2C%20tenho%20d%C3%BAvidas%20sobre%20as%20aulas." target="_blank">Falar com o Fabricio (WhatsApp)</a>
                     <a class="cta" style="background:transparent;border:1px solid rgba(255,255,255,0.06);color:#e6eef6;text-decoration:none;font-weight:700" href="#plans">Ver planos e preços</a>
                 </div>
 
-                <div style="margin-top:18px" class="small">Atendo alunos a partir dos 12 anos. Sua formação, pós-graduação ou carreira será usada para personalizar 100% o conteúdo.</div>
+                <div style="margin-top:18px" class="small">Atendo alunos a partir dos 12 anos. Sua formação, pós-graduação e experiências serão usadas para personalizar 100% o seu caminho no inglês.</div>
 
             </section>
 
@@ -124,15 +198,15 @@
                 <h3>Reserve seu horário / Dúvidas</h3>
                 <form action="https://formspree.io/f/yourformid" method="POST">
                     <label for="nome">Nome</label>
-                    <input id="nome" name="nome" placeholder="Seu nome" required>
+                    <input id="nome" name="nome" placeholder="Seu nome completo" required>
                     <label for="idade">Idade</label>
-                    <input id="idade" name="idade" placeholder="Ex: 25" required>
+                    <input id="idade" name="idade" placeholder="Ex: 25 anos" required>
                     <label for="modalidade">Modalidade (Online é a mais flexível)</label>
                     <select id="modalidade" name="modalidade">
-                        <option>Online — Standard (2x/semana)</option>
-                        <option>Online — Light (1x/semana)</option>
-                        <option>Presencial — Premium (2x/semana)</option>
-                        <option>Grupo — Online</option>
+                        <option value="Online — Standard">Online — Standard (2x/semana)</option>
+                        <option value="Online — Light">Online — Light (1x/semana)</option>
+                        <option value="Presencial — Premium">Presencial — Premium (2x/semana)</option>
+                        <option value="Grupo — Online">Grupo — Online</option>
                     </select>
                     <label for="mensagem">Mensagem / Objetivo (Viagem, Carreira, etc.)</label>
                     <textarea id="mensagem" name="mensagem" rows="4" placeholder="Conte-me seu objetivo e seus horários preferidos" required></textarea>
@@ -140,42 +214,68 @@
                 </form>
 
                 <div style="margin-top:14px" class="small">
-                    **Contato direto: (35) 98405-3161**
-                    <p style="margin:8px 0"><a href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabri" style="color:var(--accent-2);text-decoration:none">Fale pelo WhatsApp agora</a></p>
-                    <p class="small">As vagas presenciais em Varginha são limitadas.</p>
+                    <strong>Contato direto: (35) 98405-3161</strong>
+                    <p style="margin:8px 0"><a href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio%2C%20tenho%20d%C3%BAvidas%20e%20quero%20falar%20com%20voc%C3%AA." style="color:var(--accent-2);text-decoration:none" target="_blank">Fale pelo WhatsApp agora</a></p>
+                    <p class="small">As vagas presenciais em Varginha são limitadas. Garanta seu horário!</p>
                 </div>
             </aside>
         </main>
 
+        <section class="professor-section card">
+            <div>
+                <h3>Conheça o Professor Fabricio (Fabri)</h3>
+                <p class="small">Olá! Meu nome é Fabricio Figueiredo, mas pode me chamar de Fabri. Com mais de 7 anos de experiência, meu objetivo é transformar seu inglês, focando em como você realmente aprende.</p>
+                <ul>
+                    <li><strong>Formação:</strong> Graduado em Letras (Português/Inglês e suas Literaturas).</li>
+                    <li><strong>Especializações:</strong>
+                        <ul>
+                            <li>Pós-Graduação em Docência no Ensino Superior.</li>
+                            <li>Pós-Graduação em Neuroaprendizagem.</li>
+                            <li>Pós-Graduação em Educação Contemporânea com Ênfase em Educação Socioemocional.</li>
+                            <li>Curso de Educação Especial na Perspectiva da Educação Inclusiva.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Experiência Internacional:</strong> Já viajei por diversos países (Peru, Argentina, Suíça, Inglaterra, Espanha, Portugal) e tenho 2 anos de formação completa na WISG (W2 e W4).</li>
+                    <li><strong>Experiência em Tecnologia:</strong> Também sou graduado em Análise e Desenvolvimento de Sistemas.</li>
+                    <li><strong>Metodologia:</strong> Desenvolvo meu próprio método de ensino, combinando o melhor de diferentes abordagens para um aprendizado eficaz e dinâmico.</li>
+                </ul>
+            </div>
+            <div>
+                <img src="https://via.placeholder.com/300x400/06b6d4/FFFFFF?text=Fabri%20(Seu%20Foto)" alt="Foto do Professor Fabricio" style="max-width:100%; border-radius:10px; margin-top:20px; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
+                <div style="margin-top:10px" class="small">Uma foto profissional sua aqui faz toda a diferença!</div>
+            </div>
+        </section>
+
+
         <section style="margin-top:24px" class="card">
-            <h3 style="margin:0">Conheça Meu Conteúdo (YouTube, GitHub, etc.)</h3>
-            <p class="small" style="margin-top:8px">Veja meu trabalho, métodos e vídeos de aulas no meu LinkTree:</p>
-            <a class="cta" style="background:var(--accent-2); border:1px solid rgba(255,255,255,0.06);color:#061021" href="https://fab1471.github.io/Link-Node/index.html" target="_blank">Acessar LinkTree / Canais →</a>
+            <h3 style="margin:0">Conheça um pouco mais de mim</h3>
+            <p class="small" style="margin-top:8px">Explore meus canais no YouTube e veja um pouco do meu trabalho, paixões e conteúdo:</p>
+            <a class="cta" style="background:var(--accent-2); border:1px solid rgba(255,255,255,0.06);color:#061021" href="https://fab1471.github.io/Link-Node/index.html" target="_blank">Acessar meus Canais (LinkTree) →</a>
         </section>
 
         <section id="plans" class="plans">
             <div class="plan card">
                 <h3>Light — Online</h3>
                 <div class="price">R$ 280 / mês</div>
-                <div class="note">1 aula/semana (4h/mês) • **R$ 70/h** (Excelente custo-benefício)</div>
+                <div class="note">1 aula/semana (4h/mês) • <strong>R$ 70/h</strong> (Excelente custo-benefício)</div>
                 <div class="small" style="margin-top:8px">Perfeito para quem tem a agenda apertada, mas precisa de consistência na conversação.</div>
-                <a class="cta" href="https://wa.me/5535984053161?text=Quero%20o%20Light">Quero esse</a>
+                <a class="cta" href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio%2C%20quero%20o%20plano%20Light%20Online." target="_blank">Quero esse</a>
             </div>
 
             <div class="plan card" style="border:2px solid var(--accent-1); background:linear-gradient(180deg, rgba(6,182,212,0.04), rgba(6,182,212,0.02));">
-                <h3>Standard — Online (**MAIS VENDIDO**)</h3>
+                <h3>Standard — Online (**MAIS POPULAR**)</h3>
                 <div class="price">R$ 520 / mês</div>
-                <div class="note">2 aulas/semana (8h/mês) • **R$ 65/h** (Maior desconto)</div>
+                <div class="note">2 aulas/semana (8h/mês) • <strong>R$ 65/h</strong> (Maior desconto)</div>
                 <div class="small" style="margin-top:8px">Recomendado para quem busca progresso rápido, consistente e confiança em qualquer situação.</div>
-                <a class="cta" href="https://wa.me/5535984053161?text=Quero%20o%20Standard">Quero esse</a>
+                <a class="cta" href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio%2C%20quero%20o%20plano%20Standard%20Online." target="_blank">Quero esse</a>
             </div>
 
             <div class="plan card">
                 <h3>Premium — Presencial</h3>
                 <div class="price">R$ 600 / mês</div>
-                <div class="note">2 aulas/semana (8h/mês) • **R$ 75/h** (Com deslocamento incluído)</div>
+                <div class="note">2 aulas/semana (8h/mês) • <strong>R$ 75/h</strong> (Com deslocamento incluído)</div>
                 <div class="small" style="margin-top:8px">Aulas individuais presenciais no seu local em Varginha — o foco total sem sair de casa.</div>
-                <a class="cta" href="https://wa.me/5535984053161?text=Quero%20o%20Presencial">Quero presencial</a>
+                <a class="cta" href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio%2C%20quero%20o%20plano%20Premium%20Presencial." target="_blank">Quero presencial</a>
             </div>
         </section>
 
@@ -184,7 +284,7 @@
             <div style="display:flex;gap:18px;margin-top:12px;flex-wrap:wrap">
                 <div style="min-width:220px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02)">
                     <strong>Grupo Online (Máximo 4 alunos)</strong>
-                    <div class="small" style="margin-top:6px">2x/semana (8h/mês) • **R$ 280 / mês por aluno**</div>
+                    <div class="small" style="margin-top:6px">2x/semana (8h/mês) • <strong>R$ 280 / mês por aluno</strong></div>
                 </div>
             </div>
             <div class="small" style="margin-top:10px">Aulas em grupo com alto foco na conversação e interação. Preço mais acessível para garantir a prática contínua.</div>
@@ -194,18 +294,18 @@
             <h3>FAQ Rápido</h3>
             <div class="small" style="margin-top:8px">
                 <strong>Q:</strong> Preciso comprar material?<br>
-                <strong>A:</strong> Não — eu forneço material didático digital e recomendações de recursos fáceis de encontrar.
+                <strong>A:</strong> Não — eu forneço material didático digital e recomendações de recursos fáceis de encontrar, totalmente adaptado ao seu nível e objetivos.
                 <br><br>
                 <strong>Q:</strong> Como são as reposições?<br>
-                <strong>A:</strong> Reposição garantida com aviso prévio de 24h, mediante encaixe na agenda.
+                <strong>A:</strong> Reposição garantida com aviso prévio de 24h, mediante encaixe na agenda. Sua aprendizagem não para!
                 <br><br>
                 <strong>Q:</strong> Tem contrato longo?<br>
-                <strong>A:</strong> Não! Ciclo inicial de 3 meses para garantir seu progresso, com renovação opcional e cancelamento simples.
+                <strong>A:</strong> Não! O ciclo inicial é de 3 meses para garantir seu progresso, com renovação opcional e cancelamento simples, sem burocracia.
             </div>
         </section>
 
         <footer>
-            <div class="small">© Fabri — Aulas de Inglês • Varginha • Contato: <a href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabri" style="color:var(--accent-2);text-decoration:none">(35) 98405-3161 (WhatsApp)</a></div>
+            <div class="small">© FutureSelf — Inglês para a Vida Real • Varginha • Contato: <a href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio" style="color:var(--accent-2);text-decoration:none" target="_blank">(35) 98405-3161 (WhatsApp)</a></div>
         </footer>
     </div>
 </body>
