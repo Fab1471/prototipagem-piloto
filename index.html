@@ -30,16 +30,13 @@
             width:72px;height:72px;border-radius:14px;
             background:linear-gradient(135deg,var(--accent-1),var(--accent-2));
             display:flex;align-items:center;justify-content:center;
-            font-weight:800;font-size:20px;color:white;
+            font-weight:900;font-size:28px;color:white;
             box-shadow:0 8px 30px rgba(7,9,14,0.6);
-            /* Novo Estilo: Seta de Progresso */
             position: relative;
             overflow: hidden;
         }
         .logo:before {
             content: 'FS';
-            font-size: 28px;
-            font-weight: 900;
         }
         h1{font-size:22px;margin:0}
         .subtitle{color:var(--muted);margin-top:4px;font-size:15px}
@@ -62,7 +59,7 @@
         .feature{display:flex;gap:10px;align-items:flex-start}
         .dot{width:10px;height:10px;border-radius:3px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));margin-top:6px}
 
-        /* Novo Estilo para a Sidebar CTA (Substitui o Form) */
+        /* Estilo para a Sidebar CTA (WhatsApp) */
         .whatsapp-cta {
             background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
             border-radius:14px;padding:18px;
@@ -76,7 +73,7 @@
             width: 100%;
             display: block;
         }
-        .whatsapp-cta input, .whatsapp-cta select {
+        .whatsapp-cta input, .whatsapp-cta select, .whatsapp-cta textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
@@ -94,14 +91,17 @@
             margin-top: 10px;
             margin-bottom: 4px;
         }
-
+        /* Correção do Dropdown - Estilo das opções internas */
+        .whatsapp-cta select option {
+            background: var(--card); 
+            color: #e6eef6; 
+        }
 
         .small{font-size:13px;color:var(--muted)}
 
+        /* Ajuste para despoluir: Professor em uma coluna apenas */
         .professor-section {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
+            display: block; 
             margin-top: 24px;
         }
         .professor-section .card { padding: 20px; }
@@ -121,9 +121,19 @@
             margin-right: 5px;
             flex-shrink: 0;
         }
-        @media (min-width: 768px) {
-            .professor-section { grid-template-columns: 2fr 1fr; }
+        
+        .professor-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
+        .professor-image {
+            margin: 20px auto 0;
+            max-width: 300px;
+            text-align: center;
+        }
+        /* Fim do ajuste de poluição */
+
         @media(max-width:980px){.hero{grid-template-columns:1fr}}
 
     </style>
@@ -134,7 +144,7 @@
             <div class="logo"></div> 
             <div>
                 <h1 style="font-weight: 900;">FutureSelf <span style="background: linear-gradient(90deg, var(--accent-1), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">→</span></h1>
-                <div class="subtitle">Inglês que você **fala e vive de verdade** | Seu professor: Fabricio Figueiredo</div>
+                <div class="subtitle">Inglês que você <strong>fala e vive de verdade</strong> | Seu professor: Fabricio Figueiredo</div>
                 <div class="badges">
                     <div class="badge">Mais de 7 anos de experiência: Adolescentes & Adultos (12+)</div>
                     <div class="badge">Foco total: Conversação e Audição (Speaking & Listening)</div>
@@ -153,13 +163,13 @@
                             <div style="font-size:14px;color:var(--muted)">Sua jornada começa agora</div>
                             <div style="font-weight:800;font-size:20px;margin-top:6px">Aula experimental (30 minutos grátis)</div>
                         </div>
-                        <a class="cta" href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio%2C%20quero%20agendar%20minha%20aula%20experimental%20gratuita%20de%2030%20minutos." target="_blank">Agendar grátis →</a>
+                        <a class="cta" href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio%2C%20quero%20agendar%20minha%20aula%20experimental%20gratuita%20de%2030%20minutos.%0ANome%3A%20%0AHor%C3%A1rio%20Preferido%3A%20" target="_blank">Agendar grátis →</a>
                     </div>
                 </div>
 
                 <h3 style="margin-top:20px;font-size:18px">Por que aprender com o Fabricio (Fabri)?</h3>
                 <div class="features">
-                    <div class="feature"><div class="dot"></div><div><strong>Falar é prioridade:</strong> Método comunicativo que foca 80% do tempo na sua fala e compreensão.</div></div>
+                    <div class="feature"><div class="dot"></div><div><strong>Falar é prioridade:</strong> Método comunicativo que foca 80% do tempo na sua fala, audição e compreensão.</div></div>
                     <div class="feature"><div class="dot"></div><div><strong>Aprendizado Eficaz:</strong> Técnicas de neuroaprendizagem para você assimilar mais rápido e fixar o conteúdo.</div></div>
                     <div class="feature"><div class="dot"></div><div><strong>Flexibilidade Total:</strong> Escolha entre aulas online (o mais popular) ou presenciais em Varginha.</div></div>
                     <div class="feature"><div class="dot"></div><div><strong>Conteúdo Adaptado:</strong> Sua carreira, estudos e interesses guiam a criação dos materiais.</div></div>
@@ -176,23 +186,27 @@
 
             <aside class="whatsapp-cta">
                 <h3>Quer tirar dúvidas e reservar?</h3>
-                <p class="small" style="margin-top: -10px;">Preencha rapidamente para enviar sua mensagem por WhatsApp. É mais rápido!</p>
+                <p class="small" style="margin-top: -10px;">Preencha para gerar sua mensagem no WhatsApp. É o jeito mais rápido!</p>
                 
                 <label for="nome_wa">Seu Nome</label>
-                <input id="nome_wa" type="text" placeholder="Ex: Maria Silva">
+                <input id="nome_wa" type="text" placeholder="Ex: Maria Silva" required>
 
                 <label for="objetivo_wa">Seu Objetivo Principal</label>
-                <select id="objetivo_wa">
+                <select id="objetivo_wa" required>
                     <option value="Agendar Aula Experimental Grátis">Agendar Aula Experimental Grátis</option>
                     <option value="Quero o Plano Standard Online (2x)">Quero o Plano Standard Online (2x)</option>
                     <option value="Quero o Plano Light Online (1x)">Quero o Plano Light Online (1x)</option>
                     <option value="Quero o Plano Premium Presencial">Quero o Plano Premium Presencial</option>
-                    <option value="Tenho dúvidas sobre os horários">Tenho dúvidas sobre os horários</option>
-                    <option value="Tenho dúvidas gerais">Tenho dúvidas gerais</option>
+                    <option value="Tenho d%C3%BAvidas sobre os hor%C3%A1rios">Tenho dúvidas sobre os horários</option>
+                    <option value="Tenho d%C3%BAvidas gerais">Tenho dúvidas gerais</option>
                 </select>
                 
                 <label for="horario_wa">Horário Preferido</label>
-                <input id="horario_wa" type="text" placeholder="Ex: Noite (19h) ou Finais de Semana">
+                <input id="horario_wa" type="text" placeholder="Ex: Noite (19h) ou Finais de Semana" required>
+
+                <label for="mensagem_wa">Mensagem/Dúvida Adicional (Opcional)</label>
+                <textarea id="mensagem_wa" rows="3" placeholder="Ex: Já estudei antes, preciso de foco em leitura..."></textarea>
+
 
                 <a id="send_wa" class="cta" href="#" onclick="sendWhatsAppMessage(event)">Enviar Mensagem por WhatsApp</a>
 
@@ -208,19 +222,24 @@
                 const nome = document.getElementById('nome_wa').value || 'Não Informado';
                 const objetivo = document.getElementById('objetivo_wa').value;
                 const horario = document.getElementById('horario_wa').value || 'Não Informado';
+                const mensagem = document.getElementById('mensagem_wa').value || 'Nenhuma mensagem adicional.';
                 const phone = '5535984053161';
                 
-                let message = `Olá, Fabricio! Meu nome é ${nome}. ${objetivo}. Meu horário preferido é ${horario}.`;
-                message = encodeURIComponent(message);
+                // %0A é a quebra de linha no URL do WhatsApp
+                let message = `Ol%C3%A1%2C%20Fabr%C3%ADcio!%0A`;
+                message += `Nome: ${encodeURIComponent(nome)}%0A`;
+                message += `Objetivo: ${encodeURIComponent(objetivo)}%0A`;
+                message += `Hor%C3%A1rio%20Preferido: ${encodeURIComponent(horario)}%0A`;
+                message += `%0AMensagem%20Adicional: ${encodeURIComponent(mensagem)}`;
                 
                 const url = `https://wa.me/${phone}?text=${message}`;
                 window.open(url, '_blank');
             }
         </script>
         <section class="professor-section card">
-            <div>
+            <div class="professor-info">
                 <h3>Conheça o Professor Fabricio (Fabri)</h3>
-                <p class="small">Olá! Meu nome é Fabricio Figueiredo, mas pode me chamar de Fabri. Com mais de 7 anos de experiência, meu objetivo é transformar seu inglês, focando em como você realmente aprende.</p>
+                <p class="small">Olá! Meu nome é Fabricio Figueiredo, mas pode me chamar de Fabri. Com mais de 7 anos de experiência, meu objetivo é transformar seu inglês, focando em como você realmente aprende. Sou professor da rede estadual de Minas Gerais.</p>
                 <ul>
                     <li><strong>Formação:</strong> Graduado em Letras (Português/Inglês e suas Literaturas).</li>
                     <li><strong>Especializações:</strong>
@@ -231,14 +250,14 @@
                             <li>Curso de Educação Especial na Perspectiva da Educação Inclusiva.</li>
                         </ul>
                     </li>
-                    <li><strong>Experiência Internacional:</strong> Já viajei por diversos países (Peru, Argentina, Suíça, Inglaterra, Espanha, Portugal) e tenho 2 anos de formação completa na WISG (W2 e W4).</li>
-                    <li><strong>Experiência em Tecnologia:</strong> Também sou graduado em Análise e Desenvolvimento de Sistemas.</li>
-                    <li><strong>Metodologia:</strong> Desenvolvo meu próprio método de ensino, combinando o melhor de diferentes abordagens para um aprendizado eficaz e dinâmico.</li>
+                    <li><strong>Experiência Internacional:</strong> Já viajei por diversos países (Peru, Argentina, Suíça, Inglaterra, Espanha, Portugal), o que enriqueceu minha visão e método de ensino.</li>
+                    <li><strong>Experiência Profissional:</strong> Professor na Rede Estadual de Minas Gerais e vasta experiência com diversos métodos de ensino além da graduação em Análise e Desenvolvimento de Sistemas.</li>
+                    <li><strong>Metodologia:</strong> Desenvolvo meu próprio método, combinando o melhor de diferentes abordagens para um aprendizado eficaz e dinâmico, focado em fazer você falar.</li>
                 </ul>
             </div>
-            <div>
-                <img src="https://via.placeholder.com/300x400/06b6d4/FFFFFF?text=Fabri%20(Sua%20Foto%20Profissional)" alt="Foto do Professor Fabricio" style="max-width:100%; border-radius:10px; margin-top:20px; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
-                <div style="margin-top:10px" class="small">Uma foto profissional sua aqui faz toda a diferença!</div>
+            <div class="professor-image">
+                <img src="https://via.placeholder.com/300x400/06b6d4/FFFFFF?text=Fabri%20(Sua%20Foto%20Profissional)" alt="Foto do Professor Fabricio" style="max-width:100%; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
+                <div style="margin-top:10px" class="small">Coloque uma foto profissional sua aqui!</div>
             </div>
         </section>
 
@@ -246,7 +265,7 @@
         <section style="margin-top:24px" class="card">
             <h3 style="margin:0">Conheça um pouco mais de mim</h3>
             <p class="small" style="margin-top:8px">Explore meus canais no YouTube e veja um pouco do meu trabalho, paixões e conteúdo:</p>
-            <a class="cta" style="background:var(--accent-2); border:1px solid rgba(255,255,255,0.06);color:#061021" href="https://fab1471.github.io/Link-Node/index.html" target="_blank">Acessar meus Canais (LinkTree) →</a>
+            <a class="cta" style="background:var(--accent-2); border:1px solid rgba(255,255,255,0.06);color:#061021" href="https://fab1471.github.io/Link-Node/index.html" target="_blank">Acessar meu **Link-Node** →</a>
         </section>
 
         <section id="plans" class="plans">
