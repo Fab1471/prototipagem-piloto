@@ -7,136 +7,137 @@
     <meta name="description" content="Aulas de inglês personalizadas com foco em Speaking & Listening. Professor formado em Letras, com 3 pós-graduações. Mais de 7 anos de experiência. Aulas online e presenciais em Varginha.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
+        /* Variáveis e Reset */
         :root{
-            /* Cores Revisadas: Ciano/Verde Água (Tech/Clean) */
             --bg:#0c131a; --card:#081016; --glass: rgba(255,255,255,0.06);
             --accent-1: #06b6d4; /* Ciano forte */
             --accent-2:#10b981; /* Verde Água */
-            --muted:#9aa7b2; --glass-2: rgba(255,255,255,0.04);
-            --maxw:1100px;
+            --muted:#9aa7b2; --maxw:1100px;
         }
         *{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:#e6eef6}
         html,body{height:100%;margin:0;
             background:radial-gradient(1200px 600px at 10% 10%, rgba(6,182,212,0.13), transparent 8%), 
-                       radial-gradient(900px 400px at 90% 90%, rgba(16,185,129,0.08), transparent 6%), 
-                       linear-gradient(180deg,#061021 0%, #081426 100%);
+                        radial-gradient(900px 400px at 90% 90%, rgba(16,185,129,0.08), transparent 6%), 
+                        linear-gradient(180deg,#061021 0%, #081426 100%);
             -webkit-font-smoothing:antialiased
         }
         .wrap{max-width:var(--maxw);margin:28px auto;padding:20px}
+        .small{font-size:13px;color:var(--muted)}
 
+        /* Componentes Básicos */
         header{display:flex;align-items:center;gap:18px}
-        .logo{
-            width:72px;height:72px;border-radius:14px;
-            background:linear-gradient(135deg,var(--accent-1),var(--accent-2));
-            display:flex;align-items:center;justify-content:center;
-            font-weight:900;font-size:28px;color:white;
-            box-shadow:0 8px 30px rgba(7,9,14,0.6);
-            position: relative;
-            overflow: hidden;
+        .logo{ /* Estilo do FS */
+            width:72px;height:72px;border-radius:14px;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));
+            display:flex;align-items:center;justify-content:center;font-weight:900;font-size:28px;color:white;
+            box-shadow:0 8px 30px rgba(7,9,14,0.6);position: relative;overflow: hidden;
         }
-        .logo:before {
-            content: 'FS';
-        }
+        .logo:before {content: 'FS';}
         h1{font-size:22px;margin:0}
         .subtitle{color:var(--muted);margin-top:4px;font-size:15px}
+        .card{ /* Estilo de todos os cards */
+            background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));border-radius:14px;padding:20px;
+            box-shadow:0 10px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)
+        }
+        .cta{ /* Estilo dos botões */
+            display:inline-block;margin-top:12px;padding:12px 16px;border-radius:10px;
+            background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#061021;text-decoration:none;
+            font-weight:700;font-size:15px;transition: transform 0.2s;
+        }
+        .cta:hover { transform: translateY(-2px); }
 
+        /* Layout Principal */
         .hero{display:grid;grid-template-columns:1fr 360px;gap:22px;margin-top:18px}
-        .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));border-radius:14px;padding:18px;box-shadow:0 10px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
         .lead{font-size:16px;line-height:1.6;color:#dbeafe}
-
-        .badges{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-        .badge{background:var(--glass);padding:6px 10px;border-radius:999px;font-size:13px;color:#dbeafe;border:1px solid var(--glass-2)}
-
-        .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
-        .plan{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
-        .plan h3{margin:0;font-size:18px}
-        .price{font-size:24px;font-weight:700;margin-top:8px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));-webkit-background-clip:text; background-clip: text; -webkit-text-fill-color:transparent;}
-        .note{font-size:13px;color:var(--muted);margin-top:6px}
-        .cta{display:inline-block;margin-top:12px;padding:12px 16px;border-radius:10px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#061021;text-decoration:none;font-weight:700;font-size:15px}
-
+        
+        /* Lista de Vantagens (Dots) */
         .features{display:flex;flex-direction:column;gap:8px;margin-top:12px}
         .feature{display:flex;gap:10px;align-items:flex-start}
         .dot{width:10px;height:10px;border-radius:3px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));margin-top:6px}
 
-        /* Estilo para a Sidebar CTA (WhatsApp) */
-        .whatsapp-cta {
-            background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
-            border-radius:14px;padding:18px;
-            border:1px solid rgba(255,255,255,0.03);
-            text-align: center;
-        }
-        .whatsapp-cta .cta {
-            margin-top: 20px;
-            padding: 14px 20px;
-            font-size: 16px;
-            width: 100%;
-            display: block;
-        }
-        .whatsapp-cta input, .whatsapp-cta select, .whatsapp-cta textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.06);
-            background: rgba(0,0,0,0.2);
-            color: #e6eef6;
-            font-size: 14px;
-        }
-        .whatsapp-cta label {
-            display: block;
-            text-align: left;
-            font-size: 13px;
-            color: var(--muted);
-            margin-top: 10px;
-            margin-bottom: 4px;
-        }
-        /* Correção do Dropdown - Estilo das opções internas */
-        .whatsapp-cta select option {
-            background: var(--card); 
-            color: #e6eef6; 
-        }
+        /* Seção Planos */
+        .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+        .plan{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
+        .plan h3{margin:0;font-size:18px}
+        .price{font-size:24px;font-weight:700;margin-top:8px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));
+            -webkit-background-clip:text; background-clip: text; -webkit-text-fill-color:transparent;}
+        .note{font-size:13px;color:var(--muted);margin-top:6px}
+        
+        /* Estilos da Sidebar (WhatsApp Form) */
+        .whatsapp-cta {background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));border-radius:14px;padding:20px;border:1px solid rgba(255,255,255,0.03);text-align: center;}
+        .whatsapp-cta input, .whatsapp-cta select, .whatsapp-cta textarea {width: 100%;padding: 10px;margin-bottom: 10px;border-radius: 8px;border: 1px solid rgba(255,255,255,0.06);background: rgba(0,0,0,0.2);color: #e6eef6;font-size: 14px;}
+        .whatsapp-cta label {display: block;text-align: left;font-size: 13px;color: var(--muted);margin-top: 10px;margin-bottom: 4px;}
 
-        .small{font-size:13px;color:var(--muted)}
-
-        /* Ajuste para despoluir: Professor em uma coluna apenas */
-        .professor-section {
-            display: block; 
-            margin-top: 24px;
+        /* SEÇÃO PROFESSOR: Layout e Estilo da Lista */
+        .professor-section {margin-top: 24px;}
+        .professor-section h3 {font-size: 20px;margin-bottom: 20px;background: linear-gradient(90deg,var(--accent-1),var(--accent-2));
+            -webkit-background-clip: text;background-clip: text;-webkit-text-fill-color: transparent;}
+        
+        /* NOVO: Layout de Duas Colunas usando Grid */
+        .professor-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* 2/3 para info, 1/3 para imagem */
+            gap: 30px; 
+            align-items: start; /* Alinha o conteúdo ao topo */
         }
-        .professor-section .card { padding: 20px; }
-        .professor-section h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
-            background: linear-gradient(90deg,var(--accent-1),var(--accent-2));
-            -webkit-background-clip: text;
-            background-clip: text; /* Adicionado para compatibilidade */
-            -webkit-text-fill-color: transparent;
+        
+        /* Estilo da Lista (Experiência, Formação, etc.) */
+        .professor-info ul { list-style: none; padding: 0; margin: 0; }
+        .professor-info li { 
+            margin-bottom: 12px; /* Aumenta o espaçamento entre os itens */
+            display: flex; 
+            align-items: flex-start; /* Garante que o texto multi-linha comece alinhado ao check */
+            gap: 10px; 
+            font-size: 15px; 
+            line-height: 1.5; 
         }
-        .professor-section ul { list-style: none; padding: 0; margin: 0; }
-        .professor-section li { margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px; font-size: 15px; line-height: 1.5; }
-        .professor-section li::before {
+        .professor-info li::before { /* Estilo do Checkmark */
             content: '✓';
             color: var(--accent-2);
             font-weight: bold;
-            margin-right: 5px;
             flex-shrink: 0;
+            margin-top: 2px; /* Ajuste fino */
         }
         
-        .professor-info {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        /* Estilo Específico para o bloco de países (remover o checkmark) */
+        .countries-block li::before {
+            content: none !important; /* Remove o checkmark */
+            margin-right: 0;
         }
+        .countries-block {
+            display: flex; 
+            gap: 10px; 
+            font-size: 22px; /* Aumenta o tamanho das bandeiras */
+            margin-top: 5px;
+        }
+
         .professor-image {
-            margin: 20px auto 0;
-            max-width: 300px;
+            width: 100%;
             text-align: center;
         }
-        /* Fim do ajuste de poluição */
+        .professor-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            max-width: 300px; /* Limita o tamanho em grids */
+        }
 
-        @media(max-width:980px){.hero{grid-template-columns:1fr}}
-
+        /* Responsividade para Mobile */
+        @media(max-width:980px){
+            .hero{grid-template-columns:1fr}
+            .professor-grid {
+                grid-template-columns: 1fr; /* Volta para uma coluna em telas menores */
+            }
+            .professor-image {
+                order: -1; /* Coloca a imagem antes do texto em mobile */
+                margin-bottom: 20px;
+            }
+            .professor-image img {
+                max-width: 250px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -153,7 +154,7 @@
                 </div>
             </div>
         </header>
-
+        
         <main class="hero">
             <section class="card">
                 <p class="lead">Aulas <strong>100% personalizadas</strong> para quem quer destravar a conversação, entender a língua e se comunicar com confiança. Atendimento do básico ao avançado com <strong>método comunicativo</strong> e <strong>técnicas de neuroaprendizagem</strong> aplicadas. Aqui, você aprende a usar o inglês na vida real.</p>
@@ -182,7 +183,6 @@
                 </div>
 
                 <div style="margin-top:18px" class="small">Atendo alunos a partir dos 12 anos. Sua formação, pós-graduação e experiências serão usadas para personalizar 100% o seu caminho no inglês.</div>
-
             </section>
 
             <aside class="whatsapp-cta">
@@ -237,38 +237,53 @@
                 window.open(url, '_blank');
             }
         </script>
+        
         <section class="professor-section card">
-            <div class="professor-info">
-                <h3>Conheça o Professor Fabricio (Fabri)</h3>
-                <p class="small">Olá! Meu nome é Fabricio Figueiredo, mas pode me chamar de Fabri. Com mais de 7 anos de experiência, meu objetivo é transformar seu inglês, focando em como você realmente aprende. Sou professor da rede estadual de Minas Gerais.</p>
-                <ul>
-                    <li><strong>Formação:</strong> Graduado em Letras (Português/Inglês e suas Literaturas).</li>
-                    <li><strong>Especializações:</strong>
-                        <ul>
-                            <li>Pós-Graduação em Docência no Ensino Superior.</li>
-                            <li>Pós-Graduação em Neuroaprendizagem.</li>
-                            <li>Pós-Graduação em Educação Contemporânea com Ênfase em Educação Socioemocional.</li>
-                            <li>Curso de Educação Especial na Perspectiva da Educação Inclusiva.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Experiência Internacional:</strong> Já viajei por diversos países (Peru, Argentina, Suíça, Inglaterra, Espanha, Portugal), o que enriqueceu minha visão e método de ensino.</li>
-                    <li><strong>Experiência Profissional:</strong> Professor na Rede Estadual de Minas Gerais e vasta experiência com diversos métodos de ensino além da graduação em Análise e Desenvolvimento de Sistemas.</li>
-                    <li><strong>Metodologia:</strong> Desenvolvo meu próprio método, combinando o melhor de diferentes abordagens para um aprendizado eficaz e dinâmico, focado em fazer você falar.</li>
-                </ul>
-            </div>
-            <div class="professor-image">
-                <img src="me.jpeg" alt="Foto do Professor Fabricio" style="max-width:100%; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
-                <div style="margin-top:10px" class="small">Coloque uma foto profissional sua aqui!</div>
+            <h3 style="margin-top:0">Conheça o Professor Fabricio (Fabri)</h3>
+            
+            <div class="professor-grid">
+                <div class="professor-info">
+                    <p class="small" style="font-size: 15px; color: #dbeafe; line-height: 1.6; margin-bottom: 20px;">
+                        Olá! Meu nome é Fabricio Figueiredo, mas pode me chamar de Fabri. Com mais de 7 anos de experiência, meu objetivo é transformar seu inglês, focando em como você realmente aprende. Sou professor da rede estadual de Minas Gerais.
+                    </p>
+                    
+                    <ul>
+                        <li><strong>Formação:</strong> Graduação em Letras (Português/Inglês e suas Literaturas).</li>
+                        <li><strong>Formação:</strong> Graduação em Análise e Desenvolvimento de Sistemas (ADS).</li>
+                        
+                        <li><strong>Especialização:</strong> Pós-Graduação em Docência no Ensino Superior.</li>
+                        <li><strong>Especialização:</strong> Pós-Graduação em Neuroaprendizagem.</li>
+                        <li><strong>Especialização:</strong> Pós-Graduação em Educação Contemporânea com Ênfase em Educação Socioemocional.</li>
+                        <li><strong>Especialização:</strong> Curso de Educação Especial na Perspectiva da Educação Inclusiva.</li>
+                        
+                        <li>
+                            <strong>Experiência Internacional:</strong> Já viajei por diversos países, o que enriqueceu minha visão e método de ensino: 
+                            <div class="countries-block">
+                                🇵🇪 🇺🇾 🇦🇷 🇨🇭 🇬🇧 🇪🇸 🇵🇹
+                            </div>
+                        </li>
+                        <li>
+                            <strong>Experiência Profissional:</strong> Professor na Rede Estadual de Minas Gerais e vasta experiência com diversos métodos de ensino.
+                        </li>
+                        <li>
+                            <strong>Metodologia:</strong> Desenvolvo meu próprio método, combinando o melhor de diferentes abordagens para um aprendizado eficaz e dinâmico, focado em fazer você falar.
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="professor-image">
+                    <img src="me.jpeg" alt="Foto do Professor Fabricio" />
+                    <div style="margin-top:10px" class="small">Professor Fabrício Figueiredo</div>
+                </div>
             </div>
         </section>
-
 
         <section style="margin-top:24px" class="card">
             <h3 style="margin:0">Conheça um pouco mais de mim</h3>
             <p class="small" style="margin-top:8px">Explore meus canais no YouTube e veja um pouco do meu trabalho, paixões e conteúdo:</p>
-            <a class="cta" style="background:var(--accent-2); border:1px solid rgba(255,255,255,0.06);color:#061021" href="https://fab1471.github.io/Link-Node/index.html" target="_blank">Acessar meu **Link-Node** →</a>
+            <a class="cta" style="background:var(--accent-2); border:1px solid rgba(255,255,255,0.06);color:#061021" href="https://fab1471.github.io/Link-Node/index.html" target="_blank">Acessar meu Link-Node →</a>
         </section>
-
+        
         <section id="plans" class="plans">
             <div class="plan card">
                 <h3>Light — Online</h3>
