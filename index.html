@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
+    <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+    
     <style>
         /* Variáveis e Reset */
         :root{
@@ -23,7 +25,7 @@
                         linear-gradient(180deg,#061021 0%, #081426 100%);
             -webkit-font-smoothing:antialiased
         }
-        .wrap{max-width:var(--maxw);margin:28px auto;padding:20px}
+        .wrap{max-width:var(--maxw);margin:28px auto;padding:20px; position: relative;}
         .small{font-size:13px;color:var(--muted)}
 
         /* Componentes Básicos */
@@ -46,6 +48,25 @@
             font-weight:700;font-size:15px;transition: transform 0.2s;
         }
         .cta:hover { transform: translateY(-2px); }
+
+        /* NOVO: Botão de Idioma */
+        .language-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #e6eef6;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .language-toggle:hover {
+            background: rgba(255,255,255,0.1);
+        }
 
         /* Layout Principal */
         .hero{display:grid;grid-template-columns:1fr 360px;gap:22px;margin-top:18px}
@@ -101,8 +122,8 @@
         }
         
         /* Estilo Específico para o bloco de países (remover o checkmark) */
-        .countries-block li::before {
-            content: none !important; /* Remove o checkmark */
+        .countries-block-list > li::before {
+            content: none !important; /* Remove o checkmark do item pai que contém a lista de países */
             margin-right: 0;
         }
         .countries-block {
@@ -123,6 +144,14 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
             max-width: 300px; /* Limita o tamanho em grids */
         }
+        
+        /* Twemoji Style Adjustment */
+        img.emoji {
+           height: 1em;
+           width: 1em;
+           margin: 0 .05em 0 .1em;
+           vertical-align: -0.1em;
+        }
 
         /* Responsividade para Mobile */
         @media(max-width:980px){
@@ -142,202 +171,453 @@
 </head>
 <body>
     <div class="wrap">
+        <button id="language-btn" class="language-toggle" onclick="toggleLanguage()">Go Global! 🌎</button>
+        
         <header>
             <div class="logo"></div> 
             <div>
-                <h1 style="font-weight: 900;">FutureSelf <span style="background: linear-gradient(90deg, var(--accent-1), var(--accent-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">→</span></h1>
-                <div class="subtitle">Inglês que você <strong>fala e vive de verdade</strong> | Seu professor: Fabricio Figueiredo</div>
-                <div class="badges">
+                <h1 id="main-title-pt" style="font-weight: 900;">FutureSelf <span style="background: linear-gradient(90deg, var(--accent-1), var(--accent-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">→</span></h1>
+                <h1 id="main-title-en" style="font-weight: 900; display: none;">FutureSelf <span style="background: linear-gradient(90deg, var(--accent-1), var(--accent-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">→</span></h1>
+                <div id="subtitle-pt" class="subtitle">Inglês que você <strong>fala e vive de verdade</strong> | Seu professor: Fabricio Figueiredo</div>
+                <div id="subtitle-en" class="subtitle" style="display: none;">English you <strong>speak and truly live</strong> | Your teacher: Fabricio Figueiredo</div>
+                <div id="badges-pt" class="badges">
                     <div class="badge">Mais de 7 anos de experiência: Adolescentes & Adultos (12+)</div>
                     <div class="badge">Foco total: Conversação e Audição (Speaking & Listening)</div>
                     <div class="badge">Online (Todo Brasil) • Presencial (Varginha, MG)</div>
                 </div>
+                <div id="badges-en" class="badges" style="display: none;">
+                    <div class="badge">Over 7 years of experience: Teens & Adults (12+)</div>
+                    <div class="badge">Total focus: Speaking & Listening</div>
+                    <div class="badge">Online (Brazil) • In-person (Varginha, MG)</div>
+                </div>
             </div>
         </header>
         
-        <main class="hero">
-            <section class="card">
-                <p class="lead">Aulas <strong>100% personalizadas</strong> para quem quer destravar a conversação, entender a língua e se comunicar com confiança. Atendimento do básico ao avançado com <strong>método comunicativo</strong> e <strong>técnicas de neuroaprendizagem</strong> aplicadas. Aqui, você aprende a usar o inglês na vida real.</p>
+        <div id="portuguese-content">
+            <main class="hero">
+                <section class="card">
+                    <p class="lead">Aulas <strong>100% personalizadas</strong> para quem quer destravar a conversação, entender a língua e se comunicar com confiança. Atendimento do básico ao avançado com <strong>método comunicativo</strong> e <strong>técnicas de neuroaprendizagem</strong> aplicadas. Aqui, você aprende a usar o inglês na vida real.</p>
 
-                <div class="wave card" style="padding:18px">
-                    <div style="display:flex;justify-content:space-between;align-items:center">
-                        <div>
-                            <div style="font-size:14px;color:var(--muted)">Sua jornada começa agora</div>
-                            <div style="font-weight:800;font-size:20px;margin-top:6px">Aula experimental (30 minutos grátis)</div>
+                    <div class="wave card" style="padding:18px">
+                        <div style="display:flex;justify-content:space-between;align-items:center">
+                            <div>
+                                <div style="font-size:14px;color:var(--muted)">Sua jornada começa agora</div>
+                                <div style="font-weight:800;font-size:20px;margin-top:6px">Aula experimental (30 minutos grátis)</div>
+                            </div>
+                            <a class="cta" href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio%2C%20quero%20agendar%20minha%20aula%20experimental%20gratuita%20de%2030%20minutos.%0ANome%3A%20%0AHor%C3%A1rio%20Preferido%3A%20" target="_blank">Agendar grátis →</a>
                         </div>
-                        <a class="cta" href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio%2C%20quero%20agendar%20minha%20aula%20experimental%20gratuita%20de%2030%20minutos.%0ANome%3A%20%0AHor%C3%A1rio%20Preferido%3A%20" target="_blank">Agendar grátis →</a>
+                    </div>
+
+                    <h3 style="margin-top:20px;font-size:18px">Por que aprender com o Fabricio (Fabri)?</h3>
+                    <div class="features">
+                        <div class="feature"><div class="dot"></div><div><strong>Falar é prioridade:</strong> Método comunicativo que foca 80% do tempo na sua fala, audição e compreensão.</div></div>
+                        <div class="feature"><div class="dot"></div><div><strong>Aprendizado Eficaz:</strong> Técnicas de neuroaprendizagem para você assimilar mais rápido e fixar o conteúdo.</div></div>
+                        <div class="feature"><div class="dot"></div><div><strong>Flexibilidade Total:</strong> Escolha entre aulas online (o mais popular) ou presenciais em Varginha.</div></div>
+                        <div class="feature"><div class="dot"></div><div><strong>Conteúdo Adaptado:</strong> Sua carreira, estudos e interesses guiam a criação dos materiais.</div></div>
+                    </div>
+
+                    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+                        <a class="cta" href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio%2C%20tenho%20d%C3%BAvidas%20sobre%20as%20aulas%20e%20pre%C3%A7os." target="_blank">Falar com o Fabricio (WhatsApp)</a>
+                        <a class="cta" style="background:transparent;border:1px solid rgba(255,255,255,0.06);color:#e6eef6;text-decoration:none;font-weight:700" href="#plans-pt">Ver planos e preços</a>
+                    </div>
+
+                    <div style="margin-top:18px" class="small">Atendo alunos a partir dos 12 anos. Sua formação, pós-graduação e experiências serão usadas para personalizar 100% o seu caminho no inglês.</div>
+                </section>
+
+                <aside class="whatsapp-cta">
+                    <h3>Quer tirar dúvidas e reservar?</h3>
+                    <p class="small" style="margin-top: -10px;">Preencha para gerar sua mensagem no WhatsApp. É o jeito mais rápido!</p>
+                    
+                    <label for="nome_wa">Seu Nome</label>
+                    <input id="nome_wa" type="text" placeholder="Ex: Maria Silva" required>
+
+                    <label for="objetivo_wa">Seu Objetivo Principal</label>
+                    <select id="objetivo_wa" required>
+                        <option value="Agendar Aula Experimental Grátis">Agendar Aula Experimental Grátis</option>
+                        <option value="Quero o Plano Standard Online (2x)">Quero o Plano Standard Online (2x)</option>
+                        <option value="Quero o Plano Light Online (1x)">Quero o Plano Light Online (1x)</option>
+                        <option value="Quero o Plano Premium Presencial">Quero o Plano Premium Presencial</option>
+                        <option value="Tenho d%C3%BAvidas sobre os hor%C3%A1rios">Tenho dúvidas sobre os horários</option>
+                        <option value="Tenho d%C3%BAvidas gerais">Tenho dúvidas gerais</option>
+                    </select>
+                    
+                    <label for="horario_wa">Horário Preferido</label>
+                    <input id="horario_wa" type="text" placeholder="Ex: Noite (19h) ou Finais de Semana" required>
+
+                    <label for="mensagem_wa">Mensagem/Dúvida Adicional (Opcional)</label>
+                    <textarea id="mensagem_wa" rows="3" placeholder="Ex: Já estudei antes, preciso de foco em leitura..."></textarea>
+
+
+                    <a id="send_wa_pt" class="cta" href="#" onclick="sendWhatsAppMessage(event)">Enviar Mensagem por WhatsApp</a>
+
+                    <p class="small" style="margin-top:15px"><strong>Contato direto: (35) 98405-3161</strong></p>
+                    <p class="small">As vagas presenciais em Varginha são limitadas. Garanta seu horário!</p>
+                </aside>
+                
+            </main>
+            
+            <section class="professor-section card">
+                <h3 style="margin-top:0">Conheça o Professor Fabricio (Fabri)</h3>
+                
+                <div class="professor-grid">
+                    <div class="professor-info">
+                        <p class="small" style="font-size: 15px; color: #dbeafe; line-height: 1.6; margin-bottom: 20px;">
+                            Olá! Meu nome é Fabricio Figueiredo, mas pode me chamar de Fabri. Com mais de 7 anos de experiência, meu objetivo é transformar seu inglês, focando em como você realmente aprende. Sou professor da rede estadual de Minas Gerais.
+                        </p>
+                        
+                        <ul>
+                            <li><strong>Formação:</strong> Graduação em Letras (Português/Inglês e suas Literaturas).</li>
+                            <li><strong>Formação:</strong> Graduação em Análise e Desenvolvimento de Sistemas (ADS).</li>
+                            
+                            <li><strong>Especialização:</strong> Pós-Graduação em Docência no Ensino Superior.</li>
+                            <li><strong>Especialização:</strong> Pós-Graduação em Neuroaprendizagem.</li>
+                            <li><strong>Especialização:</strong> Pós-Graduação em Educação Contemporânea com Ênfase em Educação Socioemocional.</li>
+                            <li><strong>Especialização:</strong> Curso de Educação Especial na Perspectiva da Educação Inclusiva.</li>
+                            
+                            <li class="countries-block-list">
+                                <strong>Experiência Internacional:</strong> Já viajei por diversos países, o que enriqueceu minha visão e método de ensino: 
+                                <div class="countries-block">
+                                    🇵🇪 🇺🇾 🇦🇷 🇨🇭 🇬🇧 🇪🇸 🇵🇹
+                                </div>
+                            </li>
+                            <li>
+                                <strong>Experiência Profissional:</strong> Professor na Rede Estadual de Minas Gerais e vasta experiência com diversos métodos de ensino.
+                            </li>
+                            <li>
+                                <strong>Metodologia:</strong> Desenvolvo meu próprio método, combinando o melhor de diferentes abordagens para um aprendizado eficaz e dinâmico, focado em fazer você falar.
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="professor-image">
+                        <img src="me.jpeg" alt="Foto do Professor Fabricio" />
+                        <div style="margin-top:10px" class="small">Professor Fabrício Figueiredo</div>
                     </div>
                 </div>
-
-                <h3 style="margin-top:20px;font-size:18px">Por que aprender com o Fabricio (Fabri)?</h3>
-                <div class="features">
-                    <div class="feature"><div class="dot"></div><div><strong>Falar é prioridade:</strong> Método comunicativo que foca 80% do tempo na sua fala, audição e compreensão.</div></div>
-                    <div class="feature"><div class="dot"></div><div><strong>Aprendizado Eficaz:</strong> Técnicas de neuroaprendizagem para você assimilar mais rápido e fixar o conteúdo.</div></div>
-                    <div class="feature"><div class="dot"></div><div><strong>Flexibilidade Total:</strong> Escolha entre aulas online (o mais popular) ou presenciais em Varginha.</div></div>
-                    <div class="feature"><div class="dot"></div><div><strong>Conteúdo Adaptado:</strong> Sua carreira, estudos e interesses guiam a criação dos materiais.</div></div>
-                </div>
-
-                <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
-                    <a class="cta" href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio%2C%20tenho%20d%C3%BAvidas%20sobre%20as%20aulas%20e%20pre%C3%A7os." target="_blank">Falar com o Fabricio (WhatsApp)</a>
-                    <a class="cta" style="background:transparent;border:1px solid rgba(255,255,255,0.06);color:#e6eef6;text-decoration:none;font-weight:700" href="#plans">Ver planos e preços</a>
-                </div>
-
-                <div style="margin-top:18px" class="small">Atendo alunos a partir dos 12 anos. Sua formação, pós-graduação e experiências serão usadas para personalizar 100% o seu caminho no inglês.</div>
             </section>
 
-            <aside class="whatsapp-cta">
-                <h3>Quer tirar dúvidas e reservar?</h3>
-                <p class="small" style="margin-top: -10px;">Preencha para gerar sua mensagem no WhatsApp. É o jeito mais rápido!</p>
-                
-                <label for="nome_wa">Seu Nome</label>
-                <input id="nome_wa" type="text" placeholder="Ex: Maria Silva" required>
-
-                <label for="objetivo_wa">Seu Objetivo Principal</label>
-                <select id="objetivo_wa" required>
-                    <option value="Agendar Aula Experimental Grátis">Agendar Aula Experimental Grátis</option>
-                    <option value="Quero o Plano Standard Online (2x)">Quero o Plano Standard Online (2x)</option>
-                    <option value="Quero o Plano Light Online (1x)">Quero o Plano Light Online (1x)</option>
-                    <option value="Quero o Plano Premium Presencial">Quero o Plano Premium Presencial</option>
-                    <option value="Tenho d%C3%BAvidas sobre os hor%C3%A1rios">Tenho dúvidas sobre os horários</option>
-                    <option value="Tenho d%C3%BAvidas gerais">Tenho dúvidas gerais</option>
-                </select>
-                
-                <label for="horario_wa">Horário Preferido</label>
-                <input id="horario_wa" type="text" placeholder="Ex: Noite (19h) ou Finais de Semana" required>
-
-                <label for="mensagem_wa">Mensagem/Dúvida Adicional (Opcional)</label>
-                <textarea id="mensagem_wa" rows="3" placeholder="Ex: Já estudei antes, preciso de foco em leitura..."></textarea>
-
-
-                <a id="send_wa" class="cta" href="#" onclick="sendWhatsAppMessage(event)">Enviar Mensagem por WhatsApp</a>
-
-                <p class="small" style="margin-top:15px"><strong>Contato direto: (35) 98405-3161</strong></p>
-                <p class="small">As vagas presenciais em Varginha são limitadas. Garanta seu horário!</p>
-            </aside>
+            <section style="margin-top:24px" class="card">
+                <h3 style="margin:0">Conheça um pouco mais de mim</h3>
+                <p class="small" style="margin-top:8px">Explore meus canais no YouTube e veja um pouco do meu trabalho, paixões e conteúdo:</p>
+                <a class="cta" style="background:var(--accent-2); border:1px solid rgba(255,255,255,0.06);color:#061021" href="https://fab1471.github.io/Link-Node/index.html" target="_blank">Acessar meu Link-Node →</a>
+            </section>
             
-        </main>
-        
-        <script>
-            function sendWhatsAppMessage(event) {
-                event.preventDefault();
-                const nome = document.getElementById('nome_wa').value || 'Não Informado';
-                const objetivo = document.getElementById('objetivo_wa').value;
-                const horario = document.getElementById('horario_wa').value || 'Não Informado';
-                const mensagem = document.getElementById('mensagem_wa').value || 'Nenhuma mensagem adicional.';
-                const phone = '5535984053161';
-                
-                // %0A é a quebra de linha no URL do WhatsApp
-                let message = `Ol%C3%A1%2C%20Fabr%C3%ADcio!%0A`;
-                message += `Nome: ${encodeURIComponent(nome)}%0A`;
-                message += `Objetivo: ${encodeURIComponent(objetivo)}%0A`;
-                message += `Hor%C3%A1rio%20Preferido: ${encodeURIComponent(horario)}%0A`;
-                message += `%0AMensagem%20Adicional: ${encodeURIComponent(mensagem)}`;
-                
-                const url = `https://wa.me/${phone}?text=${message}`;
-                window.open(url, '_blank');
-            }
-        </script>
-        
-        <section class="professor-section card">
-            <h3 style="margin-top:0">Conheça o Professor Fabricio (Fabri)</h3>
-            
-            <div class="professor-grid">
-                <div class="professor-info">
-                    <p class="small" style="font-size: 15px; color: #dbeafe; line-height: 1.6; margin-bottom: 20px;">
-                        Olá! Meu nome é Fabricio Figueiredo, mas pode me chamar de Fabri. Com mais de 7 anos de experiência, meu objetivo é transformar seu inglês, focando em como você realmente aprende. Sou professor da rede estadual de Minas Gerais.
-                    </p>
-                    
-                    <ul>
-                        <li><strong>Formação:</strong> Graduação em Letras (Português/Inglês e suas Literaturas).</li>
-                        <li><strong>Formação:</strong> Graduação em Análise e Desenvolvimento de Sistemas (ADS).</li>
-                        
-                        <li><strong>Especialização:</strong> Pós-Graduação em Docência no Ensino Superior.</li>
-                        <li><strong>Especialização:</strong> Pós-Graduação em Neuroaprendizagem.</li>
-                        <li><strong>Especialização:</strong> Pós-Graduação em Educação Contemporânea com Ênfase em Educação Socioemocional.</li>
-                        <li><strong>Especialização:</strong> Curso de Educação Especial na Perspectiva da Educação Inclusiva.</li>
-                        
-                        <li>
-                            <strong>Experiência Internacional:</strong> Já viajei por diversos países, o que enriqueceu minha visão e método de ensino: 
-                            <div class="countries-block">
-                                🇵🇪 🇺🇾 🇦🇷 🇨🇭 🇬🇧 🇪🇸 🇵🇹
+            <section id="plans-pt" class="plans">
+                <div class="plan card">
+                    <h3>Light — Online</h3>
+                    <div class="price">R$ 280 / mês</div>
+                    <div class="note">1 aula/semana (4h/mês) • <strong>R$ 70/h</strong> (Excelente custo-benefício)</div>
+                    <div class="small" style="margin-top:8px">Perfeito para quem tem a agenda apertada, mas precisa de consistência na conversação.</div>
+                    <a class="cta" href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio%2C%20quero%20o%20plano%20Light%20Online." target="_blank">Quero esse</a>
+                </div>
+
+                <div class="plan card" style="border:2px solid var(--accent-1); background:linear-gradient(180deg, rgba(6,182,212,0.04), rgba(6,182,212,0.02));">
+                    <h3>Standard — Online (MAIS POPULAR)</h3>
+                    <div class="price">R$ 520 / mês</div>
+                    <div class="note">2 aulas/semana (8h/mês) • <strong>R$ 65/h</strong> (Maior desconto)</div>
+                    <div class="small" style="margin-top:8px">Recomendado para quem busca progresso rápido, consistente e confiança em qualquer situação.</div>
+                    <a class="cta" href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio%2C%20quero%20o%20plano%20Standard%20Online." target="_blank">Quero esse</a>
+                </div>
+
+                <div class="plan card">
+                    <h3>Premium — Presencial</h3>
+                    <div class="price">R$ 600 / mês</div>
+                    <div class="note">2 aulas/semana (8h/mês) • <strong>R$ 75/h</strong> (Com deslocamento incluído)</div>
+                    <div class="small" style="margin-top:8px">Aulas individuais presenciais no seu local em Varginha — o foco total sem sair de casa.</div>
+                    <a class="cta" href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio%2C%20quero%20o%20plano%20Premium%20Presencial." target="_blank">Quero presencial</a>
+                </div>
+            </section>
+
+            <section style="margin-top:18px" class="card">
+                <h3 style="margin:0">Planos de Grupos (Online)</h3>
+                <div style="display:flex;gap:18px;margin-top:12px;flex-wrap:wrap">
+                    <div style="min-width:220px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02)">
+                        <strong>Grupo Online (Máximo 4 alunos)</strong>
+                        <div class="small" style="margin-top:6px">2x/semana (8h/mês) • <strong>R$ 280 / mês por aluno</strong></div>
+                    </div>
+                </div>
+                <div class="small" style="margin-top:10px">Aulas em grupo com alto foco na conversação e interação. Preço mais acessível para garantir a prática contínua.</div>
+            </section>
+
+            <section style="margin-top:18px" class="card">
+                <h3>FAQ Rápido</h3>
+                <div class="small" style="margin-top:8px">
+                    <strong>Q:</strong> Preciso comprar material?<br>
+                    <strong>A:</strong> Não — eu forneço material didático digital e recomendações de recursos fáceis de encontrar, totalmente adaptado ao seu nível e objetivos.
+                    <br><br>
+                    <strong>Q:</strong> Como são as reposições?<br>
+                    <strong>A:</strong> Reposição garantida com aviso prévio de 24h, mediante encaixe na agenda. Sua aprendizagem não para!
+                    <br><br>
+                    <strong>Q:</strong> Tem contrato longo?<br>
+                    <strong>A:</strong> Não! O ciclo inicial é de 3 meses para garantir seu progresso, com renovação opcional e cancelamento simples, sem burocracia.
+                </div>
+            </section>
+
+            <footer>
+                <div class="small">© FutureSelf — Inglês para a Vida Real • Varginha • Contato: <a href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio" style="color:var(--accent-2);text-decoration:none" target="_blank">(35) 98405-3161 (WhatsApp)</a></div>
+            </footer>
+        </div> <div id="english-content" style="display: none;">
+            <main class="hero">
+                <section class="card">
+                    <p class="lead"><strong>100% personalized</strong> classes for those who want to unlock conversation, understand the language, and communicate with confidence. Serving students from basic to advanced levels using a **communicative method** and **neuro-learning techniques**. Here, you learn to use English in real life.</p>
+
+                    <div class="wave card" style="padding:18px">
+                        <div style="display:flex;justify-content:space-between;align-items:center">
+                            <div>
+                                <div style="font-size:14px;color:var(--muted)">Your journey starts now</div>
+                                <div style="font-weight:800;font-size:20px;margin-top:6px">Trial Class (30 minutes free)</div>
                             </div>
-                        </li>
-                        <li>
-                            <strong>Experiência Profissional:</strong> Professor na Rede Estadual de Minas Gerais e vasta experiência com diversos métodos de ensino.
-                        </li>
-                        <li>
-                            <strong>Metodologia:</strong> Desenvolvo meu próprio método, combinando o melhor de diferentes abordagens para um aprendizado eficaz e dinâmico, focado em fazer você falar.
-                        </li>
-                    </ul>
-                </div>
+                            <a class="cta" href="https://wa.me/5535984053161?text=Hello%20Fabricio%2C%20I%20want%20to%20schedule%20my%2030-minute%20free%20trial%20class.%0AName%3A%20%0APreferred%20Time%3A%20" target="_blank">Book free trial →</a>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top:20px;font-size:18px">Why learn with Fabricio (Fabri)?</h3>
+                    <div class="features">
+                        <div class="feature"><div class="dot"></div><div><strong>Speaking is priority:</strong> Communicative method that focuses 80% of the time on your speaking, listening, and comprehension.</div></div>
+                        <div class="feature"><div class="dot"></div><div><strong>Effective Learning:</strong> Neuro-learning techniques to help you absorb content faster and retain it.</div></div>
+                        <div class="feature"><div class="dot"></div><div><strong>Total Flexibility:</strong> Choose between online classes (the most popular) or in-person in Varginha.</div></div>
+                        <div class="feature"><div class="dot"></div><div><strong>Adapted Content:</strong> Your career, studies, and interests guide the creation of materials.</div></div>
+                    </div>
+
+                    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+                        <a class="cta" href="https://wa.me/5535984053161?text=Hello%20Fabricio%2C%20I%20have%20questions%20about%20classes%20and%20prices." target="_blank">Talk to Fabricio (WhatsApp)</a>
+                        <a class="cta" style="background:transparent;border:1px solid rgba(255,255,255,0.06);color:#e6eef6;text-decoration:none;font-weight:700" href="#plans-en">View plans and prices</a>
+                    </div>
+
+                    <div style="margin-top:18px" class="small">I teach students aged 12 and up. Your background, post-graduate education, and experiences will be used to 100% personalize your English path.</div>
+                </section>
+
+                <aside class="whatsapp-cta">
+                    <h3>Want to ask questions and book?</h3>
+                    <p class="small" style="margin-top: -10px;">Fill out this form to generate your message on WhatsApp. It's the fastest way!</p>
+                    
+                    <label for="nome_wa_en">Your Name</label>
+                    <input id="nome_wa_en" type="text" placeholder="Ex: John Smith" required>
+
+                    <label for="objetivo_wa_en">Your Main Goal</label>
+                    <select id="objetivo_wa_en" required>
+                        <option value="Schedule Free Trial Class">Schedule Free Trial Class</option>
+                        <option value="I want the Standard Online Plan (2x)">I want the Standard Online Plan (2x)</option>
+                        <option value="I want the Light Online Plan (1x)">I want the Light Online Plan (1x)</option>
+                        <option value="I want the Premium In-person Plan">I want the Premium In-person Plan</option>
+                        <option value="I have questions about schedules">I have questions about schedules</option>
+                        <option value="I have general questions">I have general questions</option>
+                    </select>
+                    
+                    <label for="horario_wa_en">Preferred Time</label>
+                    <input id="horario_wa_en" type="text" placeholder="Ex: Evening (7 PM) or Weekends" required>
+
+                    <label for="mensagem_wa_en">Additional Message/Question (Optional)</label>
+                    <textarea id="mensagem_wa_en" rows="3" placeholder="Ex: I've studied before, I need to focus on reading..."></textarea>
+
+
+                    <a id="send_wa_en" class="cta" href="#" onclick="sendWhatsAppMessageEnglish(event)">Send Message via WhatsApp</a>
+
+                    <p class="small" style="margin-top:15px"><strong>Direct Contact: (35) 98405-3161</strong></p>
+                    <p class="small">In-person slots in Varginha are limited. Secure your time!</p>
+                </aside>
+            </main>
+
+            <section class="professor-section card">
+                <h3 style="margin-top:0">Meet Professor Fabricio (Fabri)</h3>
                 
-                <div class="professor-image">
-                    <img src="me.jpeg" alt="Foto do Professor Fabricio" />
-                    <div style="margin-top:10px" class="small">Professor Fabrício Figueiredo</div>
+                <div class="professor-grid">
+                    <div class="professor-info">
+                        <p class="small" style="font-size: 15px; color: #dbeafe; line-height: 1.6; margin-bottom: 20px;">
+                            Hello! My name is Fabricio Figueiredo, but you can call me Fabri. With over 7 years of experience, my goal is to transform your English, focusing on how you truly learn. I am a teacher in the Minas Gerais state school system.
+                        </p>
+                        
+                        <ul>
+                            <li><strong>Education:</strong> Bachelor's Degree in Literature (Portuguese/English and their Literatures).</li>
+                            <li><strong>Education:</strong> Bachelor's Degree in Systems Analysis and Development (ADS).</li>
+                            
+                            <li><strong>Specialization:</strong> Post-Graduate Degree in Higher Education Teaching.</li>
+                            <li><strong>Specialization:</strong> Post-Graduate Degree in Neuro-Learning.</li>
+                            <li><strong>Specialization:</strong> Post-Graduate Degree in Contemporary Education with Emphasis on Socioemotional Education.</li>
+                            <li><strong>Specialization:</strong> Special Education Course from the Inclusive Education Perspective.</li>
+                            
+                            <li class="countries-block-list">
+                                <strong>International Experience:</strong> I have traveled to several countries, which enriched my vision and teaching method:
+                                <div class="countries-block">
+                                    🇵🇪 🇺🇾 🇦🇷 🇨🇭 🇬🇧 🇪🇸 🇵🇹
+                                </div>
+                            </li>
+                            <li>
+                                <strong>Professional Experience:</strong> Teacher in the Minas Gerais State System and extensive experience with various teaching methods.
+                            </li>
+                            <li>
+                                <strong>Metodologia:</strong> I develop my own method, combining the best of different approaches for effective and dynamic learning, focused on making you speak.
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="professor-image">
+                        <img src="me.jpeg" alt="Photo of Professor Fabricio" />
+                        <div style="margin-top:10px" class="small">Professor Fabrício Figueiredo</div>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section style="margin-top:24px" class="card">
-            <h3 style="margin:0">Conheça um pouco mais de mim</h3>
-            <p class="small" style="margin-top:8px">Explore meus canais no YouTube e veja um pouco do meu trabalho, paixões e conteúdo:</p>
-            <a class="cta" style="background:var(--accent-2); border:1px solid rgba(255,255,255,0.06);color:#061021" href="https://fab1471.github.io/Link-Node/index.html" target="_blank">Acessar meu Link-Node →</a>
-        </section>
+            <section style="margin-top:24px" class="card">
+                <h3 style="margin:0">Learn more about me</h3>
+                <p class="small" style="margin-top:8px">Explore my YouTube channels and see a little of my work, passions, and content:</p>
+                <a class="cta" style="background:var(--accent-2); border:1px solid rgba(255,255,255,0.06);color:#061021" href="https://fab1471.github.io/Link-Node/index.html" target="_blank">Access my Link-Node →</a>
+            </section>
+            
+            <section id="plans-en" class="plans">
+                <div class="plan card">
+                    <h3>Light — Online</h3>
+                    <div class="price">R$ 280 / month</div>
+                    <div class="note">1 class/week (4h/month) • <strong>R$ 70/h</strong> (Excellent cost-benefit)</div>
+                    <div class="small" style="margin-top:8px">Perfect for those with a busy schedule but need consistency in conversation practice.</div>
+                    <a class="cta" href="https://wa.me/5535984053161?text=Hello%20Fabricio%2C%20I%20want%20the%20Light%20Online%20Plan." target="_blank">I want this</a>
+                </div>
+
+                <div class="plan card" style="border:2px solid var(--accent-1); background:linear-gradient(180deg, rgba(6,182,212,0.04), rgba(6,182,212,0.02));">
+                    <h3>Standard — Online (MOST POPULAR)</h3>
+                    <div class="price">R$ 520 / month</div>
+                    <div class="note">2 classes/week (8h/month) • <strong>R$ 65/h</strong> (Biggest discount)</div>
+                    <div class="small" style="margin-top:8px">Recommended for those seeking fast, consistent progress and confidence in any situation.</div>
+                    <a class="cta" href="https://wa.me/5535984053161?text=Hello%20Fabricio%2C%20I%20want%20the%20Standard%20Online%20Plan." target="_blank">I want this</a>
+                </div>
+
+                <div class="plan card">
+                    <h3>Premium — In-person</h3>
+                    <div class="price">R$ 600 / month</div>
+                    <div class="note">2 classes/week (8h/month) • <strong>R$ 75/h</strong> (Travel included)</div>
+                    <div class="small" style="margin-top:8px">Individual in-person classes at your location in Varginha — total focus without leaving home.</div>
+                    <a class="cta" href="https://wa.me/5535984053161?text=Hello%20Fabricio%2C%20I%20want%20the%20Premium%20In-person%20Plan." target="_blank">I want in-person</a>
+                </div>
+            </section>
+
+            <section style="margin-top:18px" class="card">
+                <h3 style="margin:0">Group Plans (Online)</h3>
+                <div style="display:flex;gap:18px;margin-top:12px;flex-wrap:wrap">
+                    <div style="min-width:220px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02)">
+                        <strong>Online Group (Maximum 4 students)</strong>
+                        <div class="small" style="margin-top:6px">2x/week (8h/month) • <strong>R$ 280 / month per student</strong></div>
+                    </div>
+                </div>
+                <div class="small" style="margin-top:10px">Group classes with a high focus on conversation and interaction. More affordable price to ensure continuous practice.</div>
+            </section>
+
+            <section style="margin-top:18px" class="card">
+                <h3>Quick FAQ</h3>
+                <div class="small" style="margin-top:8px">
+                    <strong>Q:</strong> Do I need to buy materials?<br>
+                    <strong>A:</strong> No — I provide digital didactic material and recommendations for easy-to-find resources, fully adapted to your level and goals.
+                    <br><br>
+                    <strong>Q:</strong> What about makeup classes?<br>
+                    <strong>A:</strong> Makeup class guaranteed with 24h notice, subject to scheduling availability. Your learning doesn't stop!
+                    <br><br>
+                    <strong>Q:</strong> Is there a long contract?<br>
+                    <strong>A:</strong> No! The initial cycle is 3 months to ensure your progress, with optional renewal and simple cancellation, no bureaucracy.
+                </div>
+            </section>
+
+            <footer>
+                <div class="small">© FutureSelf — English for Real Life • Varginha • Contact: <a href="https://wa.me/5535984053161?text=Hello%20Fabricio" style="color:var(--accent-2);text-decoration:none" target="_blank">(35) 98405-3161 (WhatsApp)</a></div>
+            </footer>
+        </div> </div>
+
+    <script>
+        // Função para alternar o idioma
+        function toggleLanguage() {
+            const ptContent = document.getElementById('portuguese-content');
+            const enContent = document.getElementById('english-content');
+            const langBtn = document.getElementById('language-btn');
+            
+            // Elementos do Header que precisam ser alternados
+            const ptTitle = document.getElementById('main-title-pt');
+            const enTitle = document.getElementById('main-title-en');
+            const ptSubtitle = document.getElementById('subtitle-pt');
+            const enSubtitle = document.getElementById('subtitle-en');
+            const ptBadges = document.getElementById('badges-pt');
+            const enBadges = document.getElementById('badges-en');
+
+            if (ptContent.style.display !== 'none') {
+                // Mudar para Inglês
+                ptContent.style.display = 'none';
+                enContent.style.display = 'block';
+                
+                langBtn.textContent = 'Voltar ao 🇧🇷';
+                
+                ptTitle.style.display = 'none';
+                enTitle.style.display = 'block';
+                ptSubtitle.style.display = 'none';
+                enSubtitle.style.display = 'block';
+                ptBadges.style.display = 'none';
+                enBadges.style.display = 'flex'; // Os badges precisam de display: flex
+                
+                // Atualizar o atributo lang da página
+                document.documentElement.lang = 'en';
+
+            } else {
+                // Mudar para Português
+                ptContent.style.display = 'block';
+                enContent.style.display = 'none';
+                
+                langBtn.textContent = 'Go Global! 🌎';
+                
+                ptTitle.style.display = 'block';
+                enTitle.style.display = 'none';
+                ptSubtitle.style.display = 'block';
+                enSubtitle.style.display = 'none';
+                ptBadges.style.display = 'flex';
+                enBadges.style.display = 'none';
+                
+                // Atualizar o atributo lang da página
+                document.documentElement.lang = 'pt-BR';
+            }
+            
+            // Re-analisar emojis após a troca de idioma para garantir que as bandeiras sejam renderizadas
+            twemoji.parse(document.body);
+        }
+
+        // Função do WhatsApp para Português (com IDs do form PT)
+        function sendWhatsAppMessage(event) {
+            event.preventDefault();
+            const nome = document.getElementById('nome_wa').value || 'Não Informado';
+            const objetivo = document.getElementById('objetivo_wa').value;
+            const horario = document.getElementById('horario_wa').value || 'Não Informado';
+            const mensagem = document.getElementById('mensagem_wa').value || 'Nenhuma mensagem adicional.';
+            const phone = '5535984053161';
+            
+            // Monta a mensagem para o WhatsApp
+            let message = `Ol%C3%A1%2C%20Fabr%C3%ADcio!%0A`;
+            message += `Nome: ${encodeURIComponent(nome)}%0A`;
+            message += `Objetivo: ${encodeURIComponent(objetivo)}%0A`;
+            message += `Hor%C3%A1rio%20Preferido: ${encodeURIComponent(horario)}%0A`;
+            message += `%0AMensagem%20Adicional: ${encodeURIComponent(mensagem)}`;
+            
+            const url = `https://wa.me/${phone}?text=${message}`;
+            window.open(url, '_blank');
+        }
+
+        // Função do WhatsApp para Inglês (com IDs do form EN)
+        function sendWhatsAppMessageEnglish(event) {
+            event.preventDefault();
+            const nome = document.getElementById('nome_wa_en').value || 'Not Informed';
+            const objetivo = document.getElementById('objetivo_wa_en').value;
+            const horario = document.getElementById('horario_wa_en').value || 'Not Informed';
+            const mensagem = document.getElementById('mensagem_wa_en').value || 'No additional message.';
+            const phone = '5535984053161';
+            
+            // Monta a mensagem para o WhatsApp em inglês
+            let message = `Hello%2C%20Fabricio!%0A`;
+            message += `Name: ${encodeURIComponent(nome)}%0A`;
+            message += `Goal: ${encodeURIComponent(objetivo)}%0A`;
+            message += `Preferred%20Time: ${encodeURIComponent(horario)}%0A`;
+            message += `%0AAdditional%20Message: ${encodeURIComponent(mensagem)}`;
+            
+            const url = `https://wa.me/${phone}?text=${message}`;
+            window.open(url, '_blank');
+        }
         
-        <section id="plans" class="plans">
-            <div class="plan card">
-                <h3>Light — Online</h3>
-                <div class="price">R$ 280 / mês</div>
-                <div class="note">1 aula/semana (4h/mês) • <strong>R$ 70/h</strong> (Excelente custo-benefício)</div>
-                <div class="small" style="margin-top:8px">Perfeito para quem tem a agenda apertada, mas precisa de consistência na conversação.</div>
-                <a class="cta" href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio%2C%20quero%20o%20plano%20Light%20Online." target="_blank">Quero esse</a>
-            </div>
-
-            <div class="plan card" style="border:2px solid var(--accent-1); background:linear-gradient(180deg, rgba(6,182,212,0.04), rgba(6,182,212,0.02));">
-                <h3>Standard — Online (MAIS POPULAR)</h3>
-                <div class="price">R$ 520 / mês</div>
-                <div class="note">2 aulas/semana (8h/mês) • <strong>R$ 65/h</strong> (Maior desconto)</div>
-                <div class="small" style="margin-top:8px">Recomendado para quem busca progresso rápido, consistente e confiança em qualquer situação.</div>
-                <a class="cta" href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio%2C%20quero%20o%20plano%20Standard%20Online." target="_blank">Quero esse</a>
-            </div>
-
-            <div class="plan card">
-                <h3>Premium — Presencial</h3>
-                <div class="price">R$ 600 / mês</div>
-                <div class="note">2 aulas/semana (8h/mês) • <strong>R$ 75/h</strong> (Com deslocamento incluído)</div>
-                <div class="small" style="margin-top:8px">Aulas individuais presenciais no seu local em Varginha — o foco total sem sair de casa.</div>
-                <a class="cta" href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio%2C%20quero%20o%20plano%20Premium%20Presencial." target="_blank">Quero presencial</a>
-            </div>
-        </section>
-
-        <section style="margin-top:18px" class="card">
-            <h3 style="margin:0">Planos de Grupos (Online)</h3>
-            <div style="display:flex;gap:18px;margin-top:12px;flex-wrap:wrap">
-                <div style="min-width:220px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02)">
-                    <strong>Grupo Online (Máximo 4 alunos)</strong>
-                    <div class="small" style="margin-top:6px">2x/semana (8h/mês) • <strong>R$ 280 / mês por aluno</strong></div>
-                </div>
-            </div>
-            <div class="small" style="margin-top:10px">Aulas em grupo com alto foco na conversação e interação. Preço mais acessível para garantir a prática contínua.</div>
-        </section>
-
-        <section style="margin-top:18px" class="card">
-            <h3>FAQ Rápido</h3>
-            <div class="small" style="margin-top:8px">
-                <strong>Q:</strong> Preciso comprar material?<br>
-                <strong>A:</strong> Não — eu forneço material didático digital e recomendações de recursos fáceis de encontrar, totalmente adaptado ao seu nível e objetivos.
-                <br><br>
-                <strong>Q:</strong> Como são as reposições?<br>
-                <strong>A:</strong> Reposição garantida com aviso prévio de 24h, mediante encaixe na agenda. Sua aprendizagem não para!
-                <br><br>
-                <strong>Q:</strong> Tem contrato longo?<br>
-                <strong>A:</strong> Não! O ciclo inicial é de 3 meses para garantir seu progresso, com renovação opcional e cancelamento simples, sem burocracia.
-            </div>
-        </section>
-
-        <footer>
-            <div class="small">© FutureSelf — Inglês para a Vida Real • Varginha • Contato: <a href="https://wa.me/5535984053161?text=Ol%C3%A1%20Fabr%C3%ADcio" style="color:var(--accent-2);text-decoration:none" target="_blank">(35) 98405-3161 (WhatsApp)</a></div>
-        </footer>
-    </div>
+        // Inicializa o Twemoji assim que a página carregar (para a primeira renderização)
+        window.onload = function() {
+            twemoji.parse(document.body);
+        };
+    </script>
 </body>
 </html>
